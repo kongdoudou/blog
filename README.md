@@ -11,3 +11,22 @@ npm install body-parser cookie-parser debug ejs express morgan serve-favicon exp
 --save => -S
 
 #创建并初始化git，创建一个.gitignore文件
+```
+git init
+git add -A
+git commit -m"初始化项目并安装依赖"
+git remote add origin https://github.com/kongdoudou/blog.git
+git push origin master
+```
+
+#创建服务
+express+mongoose
+```
+let express = require("express");
+let app = express();
+
+app.listen(8080);
+```
+
+#跑通路由
+
