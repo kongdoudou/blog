@@ -3,6 +3,8 @@ let app = express();
 let path = require("path");
 let bodyParser = require("body-parser");
 let session = require("express-session");
+//消息提示中间件
+let flash = require("connect-flash");
 
 //设置模板引擎html
 app.set("view engine","html");
@@ -22,10 +24,16 @@ app.use(session({
     secret:"kong"  //用来加密cookie的
 }));
 
+//切记此中间件的使用要放在session的后面，因为此中间件是需要依赖session的
+app.use(flash());
+
 app.use(function(req,res,next){
-    console.log(req);
     //res.locals保存的数据在模板中可以直接使用，一般放一些公共的变量
+    console.log(req.session);
     res.locals.user = req.session.user;
+    //flash的功能是读完一次之后会立刻清空数据
+    res.locals.success = req.flash("success").toString();
+    res.locals.error = req.flash("error").toString();
     next();
 });
 
