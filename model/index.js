@@ -5,7 +5,8 @@ let db = mongoose.connect("mongodb://localhost/blog");
 let userSchema = new mongoose.Schema({
     username:String,
     password:String,
-    email:String
+    email:String,
+    avatar:String
 });
 
 //定义用户模型

@@ -15,6 +15,7 @@ app.engine("html",require("ejs").__express);
 
 //此静态文件中间件会拦截到客户端对静态文件的请求如bootstrap.css，然后会在当前目录的node_modules目录下查找到文件，如果能找到则返回客户端并结束请求
 app.use(express.static(path.resolve("node_modules")));
+app.use(express.static(path.resolve("public")));
 //解析客户端提交过来的请求体，并转成对象赋值给req.body
 app.use(bodyParser.urlencoded({extended:true}));
 //在使用了此会话中间件之后，会在请求对象上添加一个req.session的属性
@@ -29,7 +30,6 @@ app.use(flash());
 
 app.use(function(req,res,next){
     //res.locals保存的数据在模板中可以直接使用，一般放一些公共的变量
-    console.log(req.session);
     res.locals.user = req.session.user;
     //flash的功能是读完一次之后会立刻清空数据
     res.locals.success = req.flash("success").toString();
